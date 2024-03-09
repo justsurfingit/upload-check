@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>replit</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <!--Comment is also a node   -->
+
+    <input type="number" id="one" />
+    <input type="number" id="two" />
+    <button onclick="add()">cAl sum</button>
+
+    <p id="demo"></p>
+    <script>
+      async function add() {
+        const o = document.getElementById("one").value;
+        const t = document.getElementById("two").value;
+        if (!o || !t) return;
+        const data = {
+          a: o,
+          b: t,
+        };
+
+        // POST request using fetch
+        const response = await fetch("http://localhost:3500/sum", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        // let response = await fetch("http://localhost:3500/sum", METHOD).data;
+        // console.log(response);
+        const result = await response.json();
+        let ans = result;
+        // console.log(result);
+        document.getElementById("demo").innerHTML = ans.result;
+      }
+    </script>
+  </body>
+</html>
